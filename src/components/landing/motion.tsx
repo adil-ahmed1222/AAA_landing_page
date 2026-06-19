@@ -1,0 +1,215 @@
+"use client"
+
+import { motion, type Variants } from "framer-motion"
+import { cn } from "@/lib/utils"
+
+export const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+export const fadeIn: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+}
+
+export const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
+}
+
+export function Section({
+  id,
+  className,
+  children,
+}: {
+  id?: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <motion.section
+      id={id}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={fadeUp}
+      className={cn("relative px-4 py-24 md:px-8 lg:px-12", className)}
+    >
+      {children}
+    </motion.section>
+  )
+}
+
+export function FadeUp({
+  className,
+  children,
+  delay = 0,
+}: {
+  className?: string
+  children: React.ReactNode
+  delay?: number
+}) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={fadeUp}
+      transition={{ delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export function StaggerGrid({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={staggerContainer}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export function StaggerItem({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <motion.div variants={fadeUp} className={className}>
+      {children}
+    </motion.div>
+  )
+}
+
+export function GlassCard({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div
+      className={cn(
+        "glass-card gradient-border rounded-2xl p-6 transition-all duration-300 hover:border-orange-500/40 hover:shadow-[0_0_40px_-12px_rgba(249,115,22,0.35)]",
+        className
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+export function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="mb-4 inline-flex items-center rounded-full border border-orange-500/20 bg-orange-500/10 px-4 py-1.5 text-xs font-medium tracking-wider text-orange-300 uppercase">
+      {children}
+    </span>
+  )
+}
+
+export function SectionTitle({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <h2
+      className={cn(
+        "max-w-4xl text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl",
+        className
+      )}
+    >
+      {children}
+    </h2>
+  )
+}
+
+export function SectionSubtitle({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <p
+      className={cn(
+        "mt-4 max-w-3xl text-base leading-relaxed text-zinc-400 md:text-lg",
+        className
+      )}
+    >
+      {children}
+    </p>
+  )
+}
+
+export function GlowButton({
+  variant = "primary",
+  className,
+  children,
+  href,
+  onClick,
+}: {
+  variant?: "primary" | "secondary" | "ghost"
+  className?: string
+  children: React.ReactNode
+  href?: string
+  onClick?: () => void
+}) {
+  const base =
+    "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 md:px-8 md:py-3.5 md:text-base"
+
+  const variants = {
+    primary:
+      "bg-gradient-to-r from-orange-500 to-amber-400 text-black shadow-[0_0_30px_-5px_rgba(249,115,22,0.5)] hover:scale-[1.03] hover:shadow-[0_0_50px_-5px_rgba(249,115,22,0.6)]",
+    secondary:
+      "border border-orange-500/30 bg-orange-500/10 text-orange-100 backdrop-blur-sm hover:border-orange-400/50 hover:bg-orange-500/20 hover:scale-[1.03]",
+    ghost:
+      "border border-white/10 bg-white/5 text-zinc-200 backdrop-blur-sm hover:border-white/20 hover:bg-white/10 hover:scale-[1.03]",
+  }
+
+  const classes = cn(base, variants[variant], className)
+
+  if (href) {
+    return (
+      <a href={href} className={classes}>
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={classes}>
+      {children}
+    </button>
+  )
+}
