@@ -1,0 +1,46 @@
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  background: linear-gradient(135deg, #ff8c00, #ff6b35);
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+body.custom-cursor-enabled {
+  cursor: none;
+}
+
+body.custom-cursor-enabled button,
+body.custom-cursor-enabled a,
+body.custom-cursor-enabled input,
+body.custom-cursor-enabled textarea,
+body.custom-cursor-enabled select,
+body.custom-cursor-enabled [role="button"],
+body.custom-cursor-enabled [data-cursor-hide] {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    transition: none;
+  }
+}
+
+@media (hover: none) {
+  .custom-cursor {
+    display: none;
+  }
+
+  body.custom-cursor-enabled {
+    cursor: auto;
+  }
+}

@@ -4,11 +4,11 @@ import { motion, type Variants } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: "easeOut" },
   },
 }
 
@@ -16,14 +16,14 @@ export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 }
 
 export const staggerContainer: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.05 },
   },
 }
 
@@ -37,16 +37,15 @@ export function Section({
   children: React.ReactNode
 }) {
   return (
-    <motion.section
+    <section
       id={id}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={fadeUp}
-      className={cn("relative px-4 py-24 md:px-8 lg:px-12", className)}
+      className={cn(
+        "relative scroll-mt-28 px-4 py-[120px] md:px-8 lg:px-12",
+        className
+      )}
     >
       {children}
-    </motion.section>
+    </section>
   )
 }
 
@@ -63,7 +62,7 @@ export function FadeUp({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-40px", amount: 0.15 }}
       variants={fadeUp}
       transition={{ delay }}
       className={className}
@@ -84,7 +83,7 @@ export function StaggerGrid({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-40px", amount: 0.1 }}
       variants={staggerContainer}
       className={className}
     >
@@ -117,7 +116,7 @@ export function GlassCard({
   return (
     <div
       className={cn(
-        "glass-card gradient-border rounded-2xl p-6 transition-all duration-300 hover:border-orange-500/40 hover:shadow-[0_0_40px_-12px_rgba(249,115,22,0.35)]",
+        "glass-card gradient-border rounded-2xl p-6 transition-[border-color,transform] duration-300 hover:border-orange-500/40",
         className
       )}
     >
@@ -186,15 +185,15 @@ export function GlowButton({
   onClick?: () => void
 }) {
   const base =
-    "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 md:px-8 md:py-3.5 md:text-base"
+    "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-[transform,opacity] duration-300 md:px-8 md:py-3.5 md:text-base"
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-orange-500 to-amber-400 text-black shadow-[0_0_30px_-5px_rgba(249,115,22,0.5)] hover:scale-[1.03] hover:shadow-[0_0_50px_-5px_rgba(249,115,22,0.6)]",
+      "bg-gradient-to-r from-orange-500 to-amber-400 text-black shadow-[0_0_30px_-5px_rgba(249,115,22,0.5)] hover:scale-[1.02]",
     secondary:
-      "border border-orange-500/30 bg-orange-500/10 text-orange-100 backdrop-blur-sm hover:border-orange-400/50 hover:bg-orange-500/20 hover:scale-[1.03]",
+      "border border-orange-500/30 bg-orange-500/10 text-orange-100 hover:border-orange-400/50 hover:bg-orange-500/20 hover:scale-[1.02]",
     ghost:
-      "border border-white/10 bg-white/5 text-zinc-200 backdrop-blur-sm hover:border-white/20 hover:bg-white/10 hover:scale-[1.03]",
+      "border border-white/10 bg-white/5 text-zinc-200 hover:border-white/20 hover:bg-white/10 hover:scale-[1.02]",
   }
 
   const classes = cn(base, variants[variant], className)

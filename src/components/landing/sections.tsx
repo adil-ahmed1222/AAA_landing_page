@@ -8,30 +8,22 @@ import {
   CheckCircle2,
   ChevronDown,
   Code2,
-  GraduationCap,
   Layers,
   MessageCircle,
   Rocket,
   Sparkles,
-  Target,
   TrendingUp,
-  Users,
   Zap,
 } from "lucide-react"
 import {
   AGENT_CAPABILITIES,
   CAPABILITIES,
-  CAREER_OUTCOMES,
   CURRICULUM,
   FAQS,
-  GRADUATION_BUILDS,
   MARQUEE_ROW_1,
   MARQUEE_ROW_2,
   PROGRAM_DIFFERENTIATORS,
-  PROGRAM_INCLUDES,
-  PROJECTS,
   TOOL_BADGES,
-  WHO_SHOULD_JOIN,
 } from "@/lib/landing-data"
 import { CountUp } from "@/components/landing/count-up"
 import { Marquee } from "@/components/landing/marquee"
@@ -164,43 +156,11 @@ export function WhyChooseSection() {
   )
 }
 
-export function WhoShouldJoinSection() {
-  return (
-    <Section>
-      <div className="mx-auto max-w-7xl">
-        <FadeUp>
-          <SectionLabel>Audience</SectionLabel>
-          <SectionTitle>WHO SHOULD JOIN</SectionTitle>
-          <SectionSubtitle>
-            Whether you&apos;re starting out or scaling up — if you want to build
-            with AI, this program is for you.
-          </SectionSubtitle>
-        </FadeUp>
-        <StaggerGrid className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {WHO_SHOULD_JOIN.map((persona) => (
-            <StaggerItem key={persona}>
-              <motion.div
-                whileHover={{ y: -4, scale: 1.02 }}
-                className="glass-card gradient-border flex h-full items-center justify-center rounded-xl p-4 text-center"
-              >
-                <div>
-                  <Users className="mx-auto mb-2 size-5 text-orange-400" />
-                  <span className="text-sm font-medium text-zinc-300">
-                    {persona}
-                  </span>
-                </div>
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerGrid>
-      </div>
-    </Section>
-  )
-}
+export { WhoShouldJoinSection } from "@/components/landing/who-should-join-section"
 
 export function ToolsSection() {
   return (
-    <Section id="tools" className="overflow-hidden border-y border-white/5 bg-white/[0.02] py-20">
+    <Section id="tools" className="overflow-hidden border-y border-white/5 bg-white/[0.02]">
       <div className="mx-auto max-w-7xl">
         <FadeUp className="px-4 md:px-8">
           <SectionLabel>Tech Stack</SectionLabel>
@@ -295,33 +255,7 @@ export function CurriculumSection() {
   )
 }
 
-export function GraduationSection() {
-  return (
-    <Section className="bg-white/[0.02]">
-      <div className="mx-auto max-w-7xl text-center">
-        <FadeUp>
-          <SectionLabel>By Graduation</SectionLabel>
-          <SectionTitle>
-            NOT JUST A CERTIFICATE.
-            <span className="mt-2 block bg-gradient-to-r from-orange-300 to-amber-300 bg-clip-text text-transparent">
-              A CAREER PORTFOLIO.
-            </span>
-          </SectionTitle>
-        </FadeUp>
-        <StaggerGrid className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {GRADUATION_BUILDS.map((item) => (
-            <StaggerItem key={item}>
-              <GlassCard className="flex items-center gap-3 text-left">
-                <GraduationCap className="size-5 shrink-0 text-orange-400" />
-                <span className="font-medium text-zinc-200">{item}</span>
-              </GlassCard>
-            </StaggerItem>
-          ))}
-        </StaggerGrid>
-      </div>
-    </Section>
-  )
-}
+export { GraduationSection } from "@/components/landing/graduation-section"
 
 export function CapabilitiesSection() {
   return (
@@ -345,63 +279,8 @@ export function CapabilitiesSection() {
   )
 }
 
-export function ProjectsSection() {
-  return (
-    <Section id="projects" className="border-t border-white/5 bg-white/[0.02]">
-      <div className="mx-auto max-w-7xl">
-        <FadeUp>
-          <SectionLabel>Portfolio</SectionLabel>
-          <SectionTitle>
-            BUILD REAL PRODUCTS.
-            <span className="text-zinc-500"> NOT TOY PROJECTS.</span>
-          </SectionTitle>
-        </FadeUp>
-        <StaggerGrid className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((project, i) => (
-            <StaggerItem key={project}>
-              <GlassCard className="group h-full">
-                <div className="mb-3 text-xs font-bold text-orange-500/70">
-                  PROJECT {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="text-lg font-semibold text-white group-hover:text-orange-200">
-                  {project}
-                </h3>
-              </GlassCard>
-            </StaggerItem>
-          ))}
-        </StaggerGrid>
-      </div>
-    </Section>
-  )
-}
-
-export function CareerSection() {
-  return (
-    <Section id="careers">
-      <div className="mx-auto max-w-7xl">
-        <FadeUp>
-          <SectionLabel>Career Paths</SectionLabel>
-          <SectionTitle>WHERE THIS PROGRAM CAN TAKE YOU</SectionTitle>
-        </FadeUp>
-        <StaggerGrid className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {CAREER_OUTCOMES.map((career) => (
-            <StaggerItem key={career}>
-              <motion.div
-                whileHover={{ y: -6 }}
-                className="glass-card gradient-border flex h-full flex-col items-center justify-center rounded-xl p-6 text-center"
-              >
-                <Target className="mb-3 size-6 text-orange-400" />
-                <span className="text-sm font-semibold text-zinc-200">
-                  {career}
-                </span>
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerGrid>
-      </div>
-    </Section>
-  )
-}
+export { ProjectsSection } from "@/components/landing/projects-section"
+export { CareerSection } from "@/components/landing/career-section"
 
 export function MarketSection() {
   return (
@@ -472,88 +351,9 @@ export function DifferentiatorsSection() {
   )
 }
 
-export function IncludesSection() {
-  return (
-    <Section className="bg-white/[0.02]">
-      <div className="mx-auto max-w-7xl">
-        <FadeUp>
-          <SectionLabel>Program Includes</SectionLabel>
-          <SectionTitle>EVERYTHING YOU NEED TO SUCCEED</SectionTitle>
-        </FadeUp>
-        <StaggerGrid className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {PROGRAM_INCLUDES.map((item) => (
-            <StaggerItem key={item}>
-              <GlassCard className="flex items-start gap-3">
-                <Sparkles className="mt-0.5 size-4 shrink-0 text-amber-400" />
-                <span className="text-sm text-zinc-300">{item}</span>
-              </GlassCard>
-            </StaggerItem>
-          ))}
-        </StaggerGrid>
-      </div>
-    </Section>
-  )
-}
+export { IncludesSection } from "@/components/landing/includes-section"
 
-export function PricingSection() {
-  return (
-    <Section id="pricing">
-      <div className="mx-auto max-w-7xl">
-        <FadeUp className="text-center">
-          <SectionLabel>Pricing</SectionLabel>
-          <SectionTitle>
-            ONE MONTH.
-            <br />
-            ONE DECISION.
-            <br />
-            <span className="bg-gradient-to-r from-orange-300 to-amber-300 bg-clip-text text-transparent">
-              ONE CAREER SHIFT.
-            </span>
-          </SectionTitle>
-          <SectionSubtitle className="mx-auto">
-            The next twelve months will pass either way. The only question is
-            whether you spend them consuming AI or building with it.
-          </SectionSubtitle>
-        </FadeUp>
-
-        <FadeUp className="mx-auto mt-12 max-w-md">
-          <motion.div
-            whileHover={{ y: -4, scale: 1.01 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="pricing-card gradient-border relative overflow-hidden rounded-[32px] border border-orange-500/20 p-8 text-center shadow-[0_0_60px_-12px_rgba(255,140,0,0.35)] backdrop-blur-[20px] md:p-10"
-          >
-            <p className="text-xs font-semibold tracking-[0.2em] text-orange-300 uppercase">
-              Launch Price
-            </p>
-
-            <p className="mt-4 text-5xl font-bold tracking-tight text-white md:text-6xl">
-              ₹14,999
-            </p>
-
-            <div className="mt-5 space-y-1 text-sm text-zinc-400">
-              <p>Inclusive of GST</p>
-              <p>No Hidden Fees</p>
-              <p>2 Easy Installments Available</p>
-            </div>
-
-            <p className="mt-5 text-base font-medium text-orange-200/90">
-              ₹7,500 × 2
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3">
-              <GlowButton variant="primary" href="#consultation" className="w-full">
-                Enroll in Cohort 1
-              </GlowButton>
-              <GlowButton variant="secondary" href="#consultation" className="w-full">
-                Book Free Consultation
-              </GlowButton>
-            </div>
-          </motion.div>
-        </FadeUp>
-      </div>
-    </Section>
-  )
-}
+export { PricingSection } from "@/components/landing/pricing-section"
 
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(0)

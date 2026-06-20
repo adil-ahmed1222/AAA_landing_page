@@ -1,0 +1,474 @@
+/* Who Should Join — premium floating marquee cards */
+
+.who-join-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  scroll-margin-top: 7rem;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background: linear-gradient(180deg, #000000, #090300, #000000);
+}
+
+.who-join-bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 140, 0, 0.12),
+    transparent 70%
+  );
+}
+
+.who-join-glow {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 640px;
+  height: 640px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 140, 0, 0.06),
+    transparent 65%
+  );
+}
+
+.who-join-streak {
+  pointer-events: none;
+  position: absolute;
+  top: 18%;
+  left: 8%;
+  height: 1px;
+  width: 25%;
+  transform: rotate(-6deg);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(249, 115, 22, 0.2),
+    transparent
+  );
+  animation: who-join-streak-pulse 6s ease-in-out infinite;
+}
+
+@keyframes who-join-streak-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.who-join-particle {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 180, 0, 0.4);
+  opacity: 0.35;
+  animation: who-join-particle-pulse 4s ease-in-out infinite;
+}
+
+@keyframes who-join-particle-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.who-join-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.who-join-row {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 28px;
+}
+
+.who-join-row:first-child {
+  margin-top: 0;
+}
+
+.who-join-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.who-join-fade {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  height: 100%;
+  width: 72px;
+}
+
+.who-join-fade-left {
+  left: 0;
+  background: linear-gradient(to right, #040200 12%, transparent);
+}
+
+.who-join-fade-right {
+  right: 0;
+  background: linear-gradient(to left, #040200 12%, transparent);
+}
+
+.who-join-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  width: max-content;
+  gap: 28px;
+  padding: 16px 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.who-join-track-top {
+  animation: who-join-marquee-left 40s linear infinite;
+}
+
+.who-join-track-bottom {
+  animation: who-join-marquee-right 40s linear infinite;
+}
+
+.who-join-viewport:hover .who-join-track {
+  animation-play-state: paused;
+}
+
+@keyframes who-join-marquee-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes who-join-marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.who-join-scroll {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 28px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 16px 0;
+}
+
+.who-join-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fixed card shell — never changes size */
+.who-join-card {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  width: 270px;
+  min-width: 270px;
+  max-width: 270px;
+  height: 220px;
+  min-height: 220px;
+  max-height: 220px;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 768px) {
+  .who-join-card {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    height: 235px;
+    min-height: 235px;
+    max-height: 235px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .who-join-card {
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    height: 250px;
+    min-height: 250px;
+    max-height: 250px;
+  }
+}
+
+/* Float layer — transform here keeps layout box fixed */
+.who-join-card-float {
+  height: 100%;
+  width: 100%;
+  animation: who-join-float 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.who-join-card:hover .who-join-card-float {
+  animation-play-state: paused;
+}
+
+@keyframes who-join-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+/* Card surface — glassmorphism */
+.who-join-card-surface {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  border-radius: 32px;
+  padding: 22px;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 15, 15, 0.96),
+    rgba(8, 8, 8, 0.96)
+  );
+  border: 1px solid rgba(255, 180, 0, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  .who-join-card-surface {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .who-join-card-surface {
+    padding: 26px;
+  }
+}
+
+.who-join-card-surface::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 140, 0, 0.12),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.who-join-card:hover .who-join-card-surface {
+  transform: translate3d(0, -8px, 0) scale(1.02);
+  border-color: rgba(255, 180, 0, 0.3);
+  box-shadow: 0 0 60px rgba(255, 140, 0, 0.2);
+}
+
+.who-join-card-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  border-radius: 16px;
+  background: rgba(255, 170, 0, 0.08);
+  border: 1px solid rgba(255, 170, 0, 0.15);
+}
+
+@media (min-width: 768px) {
+  .who-join-card-icon {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    margin-bottom: 16px;
+    border-radius: 17px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .who-join-card-icon {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+  }
+}
+
+.who-join-card-icon svg {
+  width: 24px;
+  height: 24px;
+  color: #ffb547;
+}
+
+@media (min-width: 1024px) {
+  .who-join-card-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.who-join-card-text {
+  display: flex;
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.who-join-card-title {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: none;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  text-overflow: ellipsis;
+  /* Reserve two lines so descriptions align across cards */
+  min-height: calc(1.2em * 2);
+  max-height: calc(1.2em * 2);
+}
+
+@media (min-width: 768px) {
+  .who-join-card-title {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .who-join-card-title {
+    font-size: 24px;
+    line-height: 1.15;
+    min-height: calc(1.15em * 2);
+    max-height: calc(1.15em * 2);
+  }
+}
+
+.who-join-card-desc {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.65);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  text-overflow: ellipsis;
+  max-height: calc(1.55em * 2);
+}
+
+@media (min-width: 768px) {
+  .who-join-card-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-height: calc(1.6em * 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .who-join-card-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    max-height: calc(1.6em * 2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .who-join-track-top,
+  .who-join-track-bottom,
+  .who-join-card-float,
+  .who-join-particle,
+  .who-join-streak {
+    animation: none !important;
+  }
+}

@@ -224,18 +224,179 @@ export const PROJECTS = [
   "Deployment Capstone Project",
 ] as const
 
-export const CAREER_OUTCOMES = [
-  "AI Agent Developer",
-  "AI Automation Specialist",
-  "AI Solutions Engineer",
-  "AI Workflow Designer",
-  "AI Consultant",
-  "Agentic AI Engineer",
-  "Automation Architect",
-  "AI Freelancer",
-  "AI Product Builder",
-  "Founder of an AI Agency",
-] as const
+export type PortfolioProjectIcon =
+  | "bot"
+  | "rag"
+  | "sparkles"
+  | "share"
+  | "target"
+  | "video"
+  | "brain"
+  | "workflow"
+  | "network"
+  | "rocket"
+
+export type PortfolioProject = {
+  number: string
+  title: string
+  description: string
+  icon: PortfolioProjectIcon
+}
+
+export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
+  {
+    number: "01",
+    title: "AI Customer Support Agent",
+    description:
+      "Build an intelligent customer support agent capable of handling queries, ticketing, and multilingual conversations.",
+    icon: "bot",
+  },
+  {
+    number: "02",
+    title: "RAG Knowledge Assistant",
+    description:
+      "Design a retrieval-augmented assistant that searches documents, cites sources, and answers with grounded accuracy.",
+    icon: "rag",
+  },
+  {
+    number: "03",
+    title: "Content Automation System",
+    description:
+      "Automate research, drafting, and publishing workflows that produce consistent content at scale.",
+    icon: "sparkles",
+  },
+  {
+    number: "04",
+    title: "Social Media Automation Engine",
+    description:
+      "Create an engine that schedules posts, monitors engagement, and generates platform-ready content automatically.",
+    icon: "share",
+  },
+  {
+    number: "05",
+    title: "Lead Generation Automation System",
+    description:
+      "Build a pipeline that captures, qualifies, and nurtures leads with AI-driven outreach and scoring.",
+    icon: "target",
+  },
+  {
+    number: "06",
+    title: "AI Video Generator",
+    description:
+      "Produce short-form videos with scripted scenes, voiceovers, and automated editing powered by AI.",
+    icon: "video",
+  },
+  {
+    number: "07",
+    title: "Personal AI Employee",
+    description:
+      "Deploy a personal AI worker that manages email, calendar, tasks, and daily business operations.",
+    icon: "brain",
+  },
+  {
+    number: "08",
+    title: "Business Automation Suite",
+    description:
+      "Connect CRM, sheets, and APIs into a unified automation suite that runs your business workflows.",
+    icon: "workflow",
+  },
+  {
+    number: "09",
+    title: "Multi-Agent Collaboration System",
+    description:
+      "Orchestrate specialized agents that plan, delegate, and collaborate to solve complex multi-step tasks.",
+    icon: "network",
+  },
+  {
+    number: "10",
+    title: "Deployment Capstone Project",
+    description:
+      "Ship a production-ready capstone with monitoring, deployment, and a portfolio-ready case study.",
+    icon: "rocket",
+  },
+]
+
+export type CareerPath = {
+  number: string
+  title: string
+  description: string
+  tags: string[]
+}
+
+export const CAREER_PATHS: CareerPath[] = [
+  {
+    number: "01",
+    title: "AI Agent Developer",
+    description:
+      "Build and deploy intelligent AI agents for businesses and enterprises.",
+    tags: ["AI Agents", "LangChain", "Python", "LLMs"],
+  },
+  {
+    number: "02",
+    title: "AI Automation Specialist",
+    description:
+      "Automate workflows and business operations using modern AI systems.",
+    tags: ["Automation", "n8n", "Workflows", "Business Systems"],
+  },
+  {
+    number: "03",
+    title: "AI Solutions Engineer",
+    description:
+      "Design and implement end-to-end AI solutions for complex business problems.",
+    tags: ["AI Systems", "Architecture", "Python", "APIs"],
+  },
+  {
+    number: "04",
+    title: "AI Workflow Designer",
+    description:
+      "Create intelligent workflows that connect tools, data, and AI models.",
+    tags: ["Workflows", "n8n", "LangChain", "Automation"],
+  },
+  {
+    number: "05",
+    title: "AI Consultant",
+    description:
+      "Help companies adopt AI and digital transformation strategies.",
+    tags: ["Strategy", "Consulting", "LLMs", "Business Systems"],
+  },
+  {
+    number: "06",
+    title: "Agentic AI Engineer",
+    description:
+      "Build multi-agent systems that plan, delegate, and execute autonomously.",
+    tags: ["Agentic AI", "LangChain", "Python", "LLMs"],
+  },
+  {
+    number: "07",
+    title: "Automation Architect",
+    description:
+      "Design scalable automation infrastructure for growing enterprises.",
+    tags: ["Architecture", "n8n", "APIs", "Business Systems"],
+  },
+  {
+    number: "08",
+    title: "AI Freelancer",
+    description:
+      "Offer AI automation services and deliver client solutions independently.",
+    tags: ["Freelancing", "AI Agents", "n8n", "Python"],
+  },
+  {
+    number: "09",
+    title: "AI Product Builder",
+    description:
+      "Ship AI-powered products from concept to production deployment.",
+    tags: ["Product", "LLMs", "Python", "AI Agents"],
+  },
+  {
+    number: "10",
+    title: "Founder of an AI Agency",
+    description: "Launch and scale your own AI automation business.",
+    tags: ["Entrepreneurship", "Automation", "Business Systems", "AI Agents"],
+  },
+]
+
+/** @deprecated Use CAREER_PATHS */
+export const CAREER_OUTCOMES = CAREER_PATHS.map((path) => path.title)
 
 export const PROGRAM_DIFFERENTIATORS = [
   "Build Real Projects",

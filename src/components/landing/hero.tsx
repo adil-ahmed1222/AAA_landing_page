@@ -4,21 +4,19 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Rocket, Sparkles, Download, Calendar } from "lucide-react"
 import { HERO_STATS } from "@/lib/landing-data"
-import { HeroOrbit } from "@/components/landing/hero-orbit"
 import { HeroParticles } from "@/components/landing/hero-particles"
 import { GlowButton } from "@/components/landing/motion"
 import { AnimatedShaderHero } from "@/components/ui/animated-shader-hero"
 
 const headlineVariants = {
-  hidden: { opacity: 0, y: 40, filter: "blur(12px)" },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: {
-      delay: 0.15 + i * 0.15,
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
+      delay: 0.1 + i * 0.12,
+      duration: 0.7,
+      ease: "easeOut" as const,
     },
   }),
 }
@@ -47,7 +45,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#040200] pt-20 md:pt-24"
+      className="relative min-h-screen overflow-x-hidden bg-[#040200] pt-20 md:pt-24"
     >
       {/* Layer 1: Animated Shader Background */}
       <AnimatedShaderHero className="z-0" intensity={intensity} />
@@ -61,13 +59,13 @@ export function Hero() {
       </div>
 
       {/* Layer 4: Hero content */}
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 py-12 lg:grid-cols-2 lg:items-center lg:gap-8 lg:px-8 lg:py-20">
-        <div className="flex flex-col">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-20">
+        <div className="flex w-full max-w-3xl flex-col">
           <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.7 }}
-            className="mb-6 inline-flex w-fit flex-col gap-1 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-2 backdrop-blur-md sm:flex-row sm:items-center sm:gap-3 sm:px-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mb-6 inline-flex w-fit flex-col gap-1 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-2 sm:flex-row sm:items-center sm:gap-3 sm:px-5"
           >
             <span className="flex items-center gap-2 text-sm font-medium text-orange-200">
               <Rocket className="size-4 text-orange-400" />
@@ -116,9 +114,9 @@ export function Hero() {
           </div>
 
           <motion.p
-            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 0.65, duration: 0.7 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
             className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 md:text-lg"
           >
             Learn how to build AI Agents, Autonomous Workflows, Multi-Agent
@@ -168,20 +166,6 @@ export function Hero() {
             </GlowButton>
           </motion.div>
         </div>
-
-        {/* Layer 5: Orbit animation */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92, filter: "blur(8px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="relative hidden lg:block"
-        >
-          <HeroOrbit />
-        </motion.div>
-      </div>
-
-      <div className="relative z-10 px-4 pb-12 lg:hidden">
-        <HeroOrbit />
       </div>
     </section>
   )

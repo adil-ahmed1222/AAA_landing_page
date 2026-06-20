@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
+function getPixelRatio() {
+  if (typeof window === "undefined") return 1
+  return Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.5 : 2)
+}
+
 const defaultShaderSource = `#version 300 es
 precision highp float;
 out vec4 O;
@@ -24,7 +29,7 @@ float noise(in vec2 p) {
 }
 float fbm(vec2 p) {
   float t=.0, a=1.; mat2 m=mat2(1.,-.5,.2,1.2);
-  for (int i=0; i<5; i++) {
+  for (int i=0; i<4; i++) {
     t+=a*noise(p);
     p*=2.*m;
     a*=.5;
@@ -33,7 +38,7 @@ float fbm(vec2 p) {
 }
 float clouds(vec2 p) {
   float d=1., t=.0;
-  for (float i=.0; i<3.; i++) {
+  for (float i=.0; i<2.; i++) {
     float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);
     t=mix(t,d,a);
     d=a;
@@ -46,7 +51,7 @@ void main(void) {
   vec3 col=vec3(0);
   float bg=clouds(vec2(st.x+T*.5,-st.y));
   uv*=1.-.3*(sin(T*.2)*.5+.5);
-  for (float i=1.; i<12.; i++) {
+  for (float i=1.; i<9.; i++) {
     uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
     vec2 p=uv;
     float d=length(p);
@@ -60,12 +65,16 @@ void main(void) {
 
 function useShaderBackground(
   containerRef: React.RefObject<HTMLDivElement | null>,
-  enabled: boolean
+  enabled: boolean,
+  isVisible: boolean
 ) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameRef = useRef<number>(0)
   const rendererRef = useRef<WebGLRenderer | null>(null)
   const pointersRef = useRef<PointerHandler | null>(null)
+  const isVisibleRef = useRef(isVisible)
+
+  isVisibleRef.current = isVisible
 
   class WebGLRenderer {
     private canvas: HTMLCanvasElement
@@ -92,7 +101,13 @@ void main(){gl_Position=position;}`
     constructor(canvas: HTMLCanvasElement, scale: number) {
       this.canvas = canvas
       this.scale = scale
-      this.gl = canvas.getContext("webgl2")!
+      this.gl = canvas.getContext("webgl2", {
+        alpha: false,
+        antialias: false,
+        depth: false,
+        stencil: false,
+        powerPreference: "high-performance",
+      })!
       this.gl.viewport(0, 0, canvas.width * scale, canvas.height * scale)
       this.shaderSource = defaultShaderSource
     }
@@ -226,7 +241,6 @@ void main(){gl_Position=position;}`
 
   class PointerHandler {
     private scale: number
-    private active = false
     private pointers = new Map<number, number[]>()
     private lastCoords = [0, 0]
     private moves = [0, 0]
@@ -236,15 +250,18 @@ void main(){gl_Position=position;}`
       const map = (el: HTMLCanvasElement, s: number, x: number, y: number) =>
         [x * s, el.height - y * s]
 
-      element.addEventListener("pointermove", (e) => {
-        this.lastCoords = [e.clientX, e.clientY]
-        this.pointers.set(
-          e.pointerId,
-          map(element, this.getScale(), e.clientX, e.clientY)
-        )
-        this.moves = [this.moves[0] + e.movementX, this.moves[1] + e.movementY]
-        this.active = true
-      })
+      element.addEventListener(
+        "pointermove",
+        (e) => {
+          this.lastCoords = [e.clientX, e.clientY]
+          this.pointers.set(
+            e.pointerId,
+            map(element, this.getScale(), e.clientX, e.clientY)
+          )
+          this.moves = [this.moves[0] + e.movementX * 0.5, this.moves[1] + e.movementY * 0.5]
+        },
+        { passive: true }
+      )
     }
 
     getScale() {
@@ -275,12 +292,13 @@ void main(){gl_Position=position;}`
 
     const canvas = canvasRef.current
     const container = containerRef.current
-    const dpr = Math.max(1, Math.min(2, 0.5 * window.devicePixelRatio))
+    const dpr = getPixelRatio()
+    let running = true
 
     const resize = () => {
       if (!canvasRef.current || !containerRef.current) return
       const { width, height } = containerRef.current.getBoundingClientRect()
-      const pixelRatio = Math.max(1, Math.min(2, 0.5 * window.devicePixelRatio))
+      const pixelRatio = getPixelRatio()
       canvasRef.current.width = Math.max(1, Math.floor(width * pixelRatio))
       canvasRef.current.height = Math.max(1, Math.floor(height * pixelRatio))
       canvasRef.current.style.width = `${width}px`
@@ -289,13 +307,16 @@ void main(){gl_Position=position;}`
     }
 
     const loop = (now: number) => {
-      if (!rendererRef.current || !pointersRef.current) return
+      if (!running) return
+      animationFrameRef.current = requestAnimationFrame(loop)
+      if (!isVisibleRef.current || !rendererRef.current || !pointersRef.current) {
+        return
+      }
       rendererRef.current.updateMouse(pointersRef.current.first)
       rendererRef.current.updatePointerCount(pointersRef.current.count)
       rendererRef.current.updatePointerCoords(pointersRef.current.coords)
       rendererRef.current.updateMove(pointersRef.current.move)
       rendererRef.current.render(now)
-      animationFrameRef.current = requestAnimationFrame(loop)
     }
 
     rendererRef.current = new WebGLRenderer(canvas, dpr)
@@ -307,19 +328,20 @@ void main(){gl_Position=position;}`
     }
 
     resize()
-    loop(0)
+    animationFrameRef.current = requestAnimationFrame(loop)
 
     const observer = new ResizeObserver(resize)
     observer.observe(container)
-    window.addEventListener("resize", resize)
 
     return () => {
+      running = false
       observer.disconnect()
-      window.removeEventListener("resize", resize)
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
       rendererRef.current?.reset()
+      rendererRef.current = null
+      pointersRef.current = null
     }
   }, [containerRef, enabled])
 
@@ -335,21 +357,37 @@ export function AnimatedShaderHero({
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const canvasRef = useShaderBackground(containerRef, mounted)
+  useEffect(() => {
+    if (!mounted || !containerRef.current) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05, rootMargin: "50px" }
+    )
+    observer.observe(containerRef.current)
+    return () => observer.disconnect()
+  }, [mounted])
+
+  const canvasRef = useShaderBackground(containerRef, mounted, isVisible)
 
   const opacity =
-    intensity === "full" ? "opacity-100" : intensity === "medium" ? "opacity-80 md:opacity-100" : "opacity-70"
+    intensity === "full"
+      ? "opacity-100"
+      : intensity === "medium"
+        ? "opacity-75 md:opacity-100"
+        : "opacity-60"
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "pointer-events-none absolute inset-0 overflow-hidden",
+        "pointer-events-none absolute inset-0 overflow-hidden transform-gpu",
         opacity,
         className
       )}
@@ -359,7 +397,7 @@ export function AnimatedShaderHero({
       <canvas
         ref={canvasRef}
         className={cn(
-          "absolute inset-0 h-full w-full touch-none will-change-transform transition-opacity duration-700",
+          "absolute inset-0 h-full w-full touch-none transform-gpu transition-opacity duration-700",
           mounted ? "opacity-100" : "opacity-0"
         )}
         style={{ background: "#040200" }}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLenis } from "lenis/react"
 import { Menu, X } from "lucide-react"
 import { NAV_LINKS } from "@/lib/landing-data"
 import { GlowButton } from "@/components/landing/motion"
@@ -10,31 +11,34 @@ import { cn } from "@/lib/utils"
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const lenis = useLenis()
+
+  useLenis(({ scroll }) => {
+    setScrolled(scroll > 20)
+  })
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : ""
-    return () => {
+    if (!lenis) return
+    if (mobileOpen) {
+      lenis.stop()
+      document.body.style.overflow = "hidden"
+    } else {
+      lenis.start()
       document.body.style.overflow = ""
     }
-  }, [mobileOpen])
+    return () => {
+      lenis.start()
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen, lenis])
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 transform-gpu",
           scrolled
-            ? "border-b border-white/10 bg-black/80 shadow-lg shadow-black/20 backdrop-blur-xl"
+            ? "border-b border-white/10 bg-black/75 backdrop-blur-md"
             : "bg-transparent"
         )}
       >
@@ -78,7 +82,7 @@ export function Navbar() {
             {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </nav>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {mobileOpen && (
@@ -86,28 +90,26 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl lg:hidden"
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-md lg:hidden"
           >
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className="flex h-full flex-col px-6 pt-24 pb-8"
             >
               <div className="flex flex-col gap-6">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.a
+                {NAV_LINKS.map((link) => (
+                  <a
                     key={link.href}
                     href={link.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
                     onClick={() => setMobileOpen(false)}
                     className="text-2xl font-medium text-zinc-200"
                   >
                     {link.label}
-                  </motion.a>
+                  </a>
                 ))}
               </div>
               <div className="mt-auto flex flex-col gap-3">
