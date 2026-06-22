@@ -153,10 +153,10 @@ export function Hero() {
             transition={{ delay: 1, duration: 0.6 }}
             className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
           >
-            <GlowButton variant="primary" href="#pricing">
+            <GlowButton variant="primary" modalAction="enroll">
               Enroll in Cohort 1
             </GlowButton>
-            <GlowButton variant="secondary" href="#brochure">
+            <GlowButton variant="secondary" modalAction="brochure">
               <Download className="mr-2 size-4" />
               Download Brochure
             </GlowButton>

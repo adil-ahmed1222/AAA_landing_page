@@ -1,6 +1,7 @@
 "use client"
 
 import { motion, type Variants } from "framer-motion"
+import { useLandingModalsOptional } from "@/components/modals/ModalProvider"
 import { cn } from "@/lib/utils"
 
 export const fadeUp: Variants = {
@@ -177,13 +178,16 @@ export function GlowButton({
   children,
   href,
   onClick,
+  modalAction,
 }: {
   variant?: "primary" | "secondary" | "ghost"
   className?: string
   children: React.ReactNode
   href?: string
   onClick?: () => void
+  modalAction?: "brochure" | "enroll"
 }) {
+  const modals = useLandingModalsOptional()
   const base =
     "relative inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-[transform,opacity] duration-300 md:px-8 md:py-3.5 md:text-base"
 
@@ -197,6 +201,25 @@ export function GlowButton({
   }
 
   const classes = cn(base, variants[variant], className)
+
+  if (modalAction && modals) {
+    return (
+      <button
+        type="button"
+        className={classes}
+        onClick={(event) => {
+          onClick?.()
+          if (modalAction === "brochure") {
+            modals.openBrochure(event.currentTarget)
+          } else {
+            modals.openEnroll(event.currentTarget)
+          }
+        }}
+      >
+        {children}
+      </button>
+    )
+  }
 
   if (href) {
     return (

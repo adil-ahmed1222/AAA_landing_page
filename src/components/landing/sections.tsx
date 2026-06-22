@@ -176,10 +176,10 @@ export function ToolsSection() {
           <Marquee items={MARQUEE_ROW_2} direction="left" speed={50} />
         </div>
 
-        <StaggerGrid className="mt-12 flex flex-wrap justify-center gap-3 px-4">
+        <StaggerGrid className="mt-12 flex flex-wrap justify-center gap-x-5 gap-y-4 px-4 md:gap-x-6 md:gap-y-5">
           {TOOL_BADGES.map((badge) => (
-            <StaggerItem key={badge}>
-              <span className="rounded-full border border-white/10 bg-gradient-to-r from-orange-500/10 to-amber-500/5 px-4 py-2 text-xs font-medium text-zinc-300 md:text-sm">
+            <StaggerItem key={badge} className="shrink-0">
+              <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 bg-gradient-to-r from-orange-500/10 to-amber-500/5 px-4 py-2 text-xs font-medium text-zinc-300 md:text-sm">
                 {badge}
               </span>
             </StaggerItem>
@@ -196,7 +196,7 @@ export function CurriculumSection() {
       <div className="mx-auto max-w-7xl">
         <FadeUp>
           <SectionLabel>Curriculum</SectionLabel>
-          <SectionTitle>4-WEEK AGENTIC AI MASTER PROGRAM</SectionTitle>
+          <SectionTitle>4-WEEK AI AGENTS & AUTOMATION MASTER PROGRAM</SectionTitle>
           <SectionSubtitle>
             A structured, hands-on journey from AI foundations to deploying
             your own AI Employee.
@@ -280,9 +280,40 @@ export function CapabilitiesSection() {
 }
 
 export { ProjectsSection } from "@/components/landing/projects-section"
-export { CareerSection } from "@/components/landing/career-section"
+export { CareerOutcomesSection } from "@/components/landing/career-outcomes-section"
 
 export function MarketSection() {
+  const marketCards = [
+    {
+      key: "growth",
+      stat: (
+        <div className="text-4xl font-bold text-orange-400 md:text-5xl">
+          <CountUp end={40} suffix="+" />%
+        </div>
+      ),
+      description: "Growth in AI and Automation Roles",
+    },
+    {
+      key: "freelance",
+      stat: (
+        <div className="text-3xl font-bold text-amber-300 md:text-4xl lg:text-5xl">
+          ₹15K–₹75K
+        </div>
+      ),
+      description: "Typical Freelance Automation Project Value",
+    },
+    {
+      key: "roi",
+      stat: (
+        <div className="flex flex-col items-center">
+          <div className="text-4xl font-bold text-orange-400 md:text-5xl">1</div>
+          <p className="mt-1 text-lg font-medium text-zinc-200">Project</p>
+        </div>
+      ),
+      description: "Can recover your entire program investment.",
+    },
+  ] as const
+
   return (
     <Section className="bg-gradient-to-b from-orange-500/5 to-transparent">
       <div className="mx-auto max-w-7xl">
@@ -290,38 +321,19 @@ export function MarketSection() {
           <SectionLabel>Market Opportunity</SectionLabel>
           <SectionTitle>THE AI AUTOMATION ECONOMY IS BOOMING</SectionTitle>
         </FadeUp>
-        <StaggerGrid className="mt-12 grid gap-6 md:grid-cols-3">
-          <StaggerItem>
-            <GlassCard className="text-center">
-              <div className="text-5xl font-bold text-orange-400">
-                <CountUp end={40} suffix="+" />%
-              </div>
-              <p className="mt-3 text-zinc-400">
-                Growth in AI and Automation Roles
-              </p>
-            </GlassCard>
-          </StaggerItem>
-          <StaggerItem>
-            <GlassCard className="text-center">
-              <div className="text-3xl font-bold text-amber-300 md:text-4xl">
-                ₹15K–₹75K
-              </div>
-              <p className="mt-3 text-zinc-400">
-                Typical Freelance Automation Project Value
-              </p>
-            </GlassCard>
-          </StaggerItem>
-          <StaggerItem>
-            <GlassCard className="text-center">
-              <div className="text-5xl font-bold text-orange-400">1</div>
-              <p className="mt-3 text-lg font-medium text-zinc-200">
-                Project
-              </p>
-              <p className="mt-1 text-zinc-400">
-                Can recover your entire program investment.
-              </p>
-            </GlassCard>
-          </StaggerItem>
+        <StaggerGrid className="mt-12 grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {marketCards.map(({ key, stat, description }) => (
+            <StaggerItem key={key} className="h-full">
+              <GlassCard className="flex h-full min-h-[220px] flex-col items-center justify-center p-6 text-center md:min-h-[240px] md:p-8">
+                <div className="flex min-h-[5.5rem] flex-col items-center justify-center">
+                  {stat}
+                </div>
+                <p className="mt-4 min-h-[4.5rem] max-w-[18rem] text-sm leading-relaxed text-zinc-400 md:text-base">
+                  {description}
+                </p>
+              </GlassCard>
+            </StaggerItem>
+          ))}
         </StaggerGrid>
       </div>
     </Section>
@@ -426,7 +438,7 @@ export function FinalCTASection() {
             building real systems that companies and clients actually need.
           </SectionSubtitle>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <GlowButton variant="primary" href="#pricing">
+            <GlowButton variant="primary" modalAction="enroll">
               Enroll in Cohort 1
             </GlowButton>
             <GlowButton variant="secondary" href="#consultation">

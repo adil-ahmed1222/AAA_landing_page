@@ -306,10 +306,12 @@ export function WhoShouldJoinSection() {
             No Matter Your Background, You Can Build With AI.
           </h3>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <GlowButton variant="primary" href="#pricing">
+            <GlowButton variant="primary" modalAction="enroll">
               Join Cohort 1
             </GlowButton>
-            <GlowButton variant="secondary">Download Brochure</GlowButton>
+            <GlowButton variant="secondary" modalAction="brochure">
+              Download Brochure
+            </GlowButton>
           </div>
         </FadeUp>
       </div>

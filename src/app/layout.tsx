@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "NeuralVarsity | Agents & Automation Master Program",
+  title: "NeuralVarsity | AI Agents & Automation Master Program",
   description:
     "Become job-ready in Agentic AI. Build AI agents, automation workflows, and production-ready systems in 4 weeks. Enroll in Cohort 1.",
   keywords: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     "RAG",
   ],
   openGraph: {
-    title: "NeuralVarsity | Agents & Automation Master Program",
+    title: "NeuralVarsity | AI Agents & Automation Master Program",
     description:
       "Build AI Agents. Automate Businesses. Become an Agentic AI Engineer.",
     url: "https://neuralvarsity.ai",

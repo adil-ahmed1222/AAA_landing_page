@@ -48,7 +48,7 @@ export function Navbar() {
               NeuralVarsity
             </span>
             <span className="text-[10px] tracking-widest text-zinc-500 uppercase md:text-xs">
-              Agents & Automation
+              AI Agents & Automation
             </span>
           </a>
 
@@ -68,7 +68,7 @@ export function Navbar() {
             <GlowButton variant="ghost" href="#consultation" className="!px-5 !py-2.5 !text-sm">
               Book Consultation
             </GlowButton>
-            <GlowButton variant="primary" href="#pricing" className="!px-5 !py-2.5 !text-sm">
+            <GlowButton variant="primary" modalAction="enroll" className="!px-5 !py-2.5 !text-sm">
               Enroll Now
             </GlowButton>
           </div>
@@ -116,7 +116,11 @@ export function Navbar() {
                 <GlowButton variant="ghost" href="#consultation" onClick={() => setMobileOpen(false)}>
                   Book Consultation
                 </GlowButton>
-                <GlowButton variant="primary" href="#pricing" onClick={() => setMobileOpen(false)}>
+                <GlowButton
+                  variant="primary"
+                  modalAction="enroll"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Enroll Now
                 </GlowButton>
               </div>

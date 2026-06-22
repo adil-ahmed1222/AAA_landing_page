@@ -12,7 +12,7 @@ export const HERO_HEADLINES = [
   "BUILD AI AGENTS.\nAUTOMATE BUSINESSES.\nBECOME AN AGENTIC AI ENGINEER.",
   "Launch Your Career Into the Age of AI Agents",
   "From Learning AI to Building AI Employees",
-  "Master Agentic AI & Automation and Build Production-Ready Systems",
+  "Master AI Agents & Automation and Build Production-Ready Systems",
 ] as const
 
 export const HERO_STATS = [
@@ -316,87 +316,108 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   },
 ]
 
-export type CareerPath = {
-  number: string
+export type CareerOutcomeIcon =
+  | "bot"
+  | "zap"
+  | "layers"
+  | "workflow"
+  | "briefcase"
+  | "network"
+  | "building"
+  | "laptop"
+  | "rocket"
+  | "crown"
+
+export type CareerOutcome = {
   title: string
+  salary: string
+  skills: string[]
   description: string
-  tags: string[]
+  icon: CareerOutcomeIcon
 }
 
-export const CAREER_PATHS: CareerPath[] = [
+export const CAREER_OUTCOMES: CareerOutcome[] = [
   {
-    number: "01",
     title: "AI Agent Developer",
+    salary: "₹8–20 LPA",
+    skills: ["AI Agents", "LangChain", "Python", "LLMs", "RAG"],
     description:
-      "Build and deploy intelligent AI agents for businesses and enterprises.",
-    tags: ["AI Agents", "LangChain", "Python", "LLMs"],
+      "Build and deploy intelligent AI agents capable of reasoning, task execution, and business automation.",
+    icon: "bot",
   },
   {
-    number: "02",
     title: "AI Automation Specialist",
+    salary: "₹7–18 LPA",
+    skills: ["n8n", "Automation", "APIs", "Business Workflows", "AI Tools"],
     description:
-      "Automate workflows and business operations using modern AI systems.",
-    tags: ["Automation", "n8n", "Workflows", "Business Systems"],
+      "Automate repetitive workflows and streamline business operations using modern AI systems.",
+    icon: "zap",
   },
   {
-    number: "03",
     title: "AI Solutions Engineer",
+    salary: "₹10–25 LPA",
+    skills: ["Python", "Architecture", "APIs", "AI Systems", "Integrations"],
     description:
-      "Design and implement end-to-end AI solutions for complex business problems.",
-    tags: ["AI Systems", "Architecture", "Python", "APIs"],
+      "Design and implement end-to-end AI solutions for enterprises and complex business problems.",
+    icon: "layers",
   },
   {
-    number: "04",
     title: "AI Workflow Designer",
+    salary: "₹8–16 LPA",
+    skills: ["n8n", "Zapier", "Automation", "AI Agents", "Process Design"],
     description:
-      "Create intelligent workflows that connect tools, data, and AI models.",
-    tags: ["Workflows", "n8n", "LangChain", "Automation"],
+      "Create intelligent workflows that connect tools, data, and AI agents to improve productivity.",
+    icon: "workflow",
   },
   {
-    number: "05",
     title: "AI Consultant",
+    salary: "₹12–30 LPA",
+    skills: ["Strategy", "Business Systems", "AI Transformation", "Automation", "Consulting"],
     description:
-      "Help companies adopt AI and digital transformation strategies.",
-    tags: ["Strategy", "Consulting", "LLMs", "Business Systems"],
+      "Help organizations adopt AI technologies and build automation strategies for growth.",
+    icon: "briefcase",
   },
   {
-    number: "06",
     title: "Agentic AI Engineer",
+    salary: "₹12–35 LPA",
+    skills: ["Multi-Agent Systems", "Planning", "Memory", "RAG", "Orchestration"],
     description:
-      "Build multi-agent systems that plan, delegate, and execute autonomously.",
-    tags: ["Agentic AI", "LangChain", "Python", "LLMs"],
+      "Build autonomous AI systems capable of planning, reasoning, and collaborating with multiple agents.",
+    icon: "network",
   },
   {
-    number: "07",
     title: "Automation Architect",
+    salary: "₹15–40 LPA",
+    skills: ["Enterprise Systems", "Automation Design", "AI Infrastructure", "APIs", "Cloud"],
     description:
-      "Design scalable automation infrastructure for growing enterprises.",
-    tags: ["Architecture", "n8n", "APIs", "Business Systems"],
+      "Architect large-scale automation systems and AI infrastructures for modern businesses.",
+    icon: "building",
   },
   {
-    number: "08",
     title: "AI Freelancer",
+    salary: "₹5–25 LPA+",
+    skills: ["Automation", "AI Agents", "Prompt Engineering", "Consulting", "Deployment"],
     description:
-      "Offer AI automation services and deliver client solutions independently.",
-    tags: ["Freelancing", "AI Agents", "n8n", "Python"],
+      "Build and sell AI solutions and automation services to global clients and businesses.",
+    icon: "laptop",
   },
   {
-    number: "09",
     title: "AI Product Builder",
+    salary: "₹10–50 LPA+",
+    skills: ["SaaS", "AI Agents", "Product Development", "MVPs", "Deployment"],
     description:
-      "Ship AI-powered products from concept to production deployment.",
-    tags: ["Product", "LLMs", "Python", "AI Agents"],
+      "Launch AI-powered products and applications solving real-world business problems.",
+    icon: "rocket",
   },
   {
-    number: "10",
     title: "Founder of an AI Agency",
-    description: "Launch and scale your own AI automation business.",
-    tags: ["Entrepreneurship", "Automation", "Business Systems", "AI Agents"],
+    salary: "Unlimited Potential",
+    skills: ["Business", "Sales", "AI Automation", "Leadership", "Strategy"],
+    description:
+      "Start and scale your own AI agency delivering automation and AI transformation services.",
+    icon: "crown",
   },
 ]
-
-/** @deprecated Use CAREER_PATHS */
-export const CAREER_OUTCOMES = CAREER_PATHS.map((path) => path.title)
 
 export const PROGRAM_DIFFERENTIATORS = [
   "Build Real Projects",
@@ -442,11 +463,11 @@ export const FAQS = [
   },
   {
     q: "Will I get recordings?",
-    a: "Every live session is recorded. You get lifetime access to recordings so you can revisit lessons anytime.",
+    a: "Every live session is recorded so you can revisit lessons anytime.",
   },
   {
     q: "Will I receive certification?",
-    a: "Yes. Graduates receive the NeuralVarsity Agents & Automation Master Program Professional Certificate.",
+    a: "Yes. Graduates receive the NeuralVarsity AI Agents & Automation Master Program Professional Certificate.",
   },
   {
     q: "Can I freelance after completing this program?",

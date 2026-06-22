@@ -4,6 +4,7 @@ import { Navbar } from "@/components/landing/navbar"
 import { Hero } from "@/components/landing/hero"
 import { LoadingScreen } from "@/components/landing/loading-screen"
 import { Footer } from "@/components/landing/footer"
+import { ModalProvider } from "@/components/modals/ModalProvider"
 import {
   WhyProgramSection,
   WhyChooseSection,
@@ -13,8 +14,8 @@ import {
   GraduationSection,
   CapabilitiesSection,
   ProjectsSection,
-  CareerSection,
   MarketSection,
+  CareerOutcomesSection,
   DifferentiatorsSection,
   IncludesSection,
   PricingSection,
@@ -24,7 +25,7 @@ import {
 
 export function LandingPage() {
   return (
-    <>
+    <ModalProvider>
       <LoadingScreen />
       <Navbar />
       <main className="relative overflow-x-hidden bg-[#030303]">
@@ -37,8 +38,8 @@ export function LandingPage() {
         <GraduationSection />
         <CapabilitiesSection />
         <ProjectsSection />
-        <CareerSection />
         <MarketSection />
+        <CareerOutcomesSection />
         <DifferentiatorsSection />
         <IncludesSection />
         <PricingSection />
@@ -46,6 +47,6 @@ export function LandingPage() {
         <FinalCTASection />
       </main>
       <Footer />
-    </>
+    </ModalProvider>
   )
 }

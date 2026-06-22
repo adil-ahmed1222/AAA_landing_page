@@ -19,10 +19,10 @@ export function Footer() {
             NeuralVarsity
           </p>
           <p className="mt-1 text-sm text-zinc-400">
-            Agents & Automation Master Program
+            AI Agents & Automation Master Program
           </p>
           <p className="text-xs text-zinc-500">
-            Agentic AI & Automation Professional Certificate Program
+            AI Agents & Automation Professional Certificate Program
           </p>
           <a
             href="https://neuralvarsity.ai"

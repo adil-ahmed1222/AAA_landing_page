@@ -128,7 +128,7 @@ export function PricingSection() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3">
-              <GlowButton variant="primary" href="#consultation" className="w-full">
+              <GlowButton variant="primary" modalAction="enroll" className="w-full">
                 Enroll in Cohort 1
               </GlowButton>
               <GlowButton variant="secondary" href="#consultation" className="w-full">

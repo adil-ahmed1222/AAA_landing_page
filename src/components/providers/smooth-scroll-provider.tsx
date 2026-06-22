@@ -3,6 +3,7 @@
 import { ReactLenis, useLenis } from "lenis/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { frame } from "motion-dom"
 import { useEffect, type ReactNode } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -82,6 +83,7 @@ function LenisFramerBridge() {
     if (!lenis) return
 
     const onScroll = () => {
+      frame.read(() => {}, false, true)
       window.dispatchEvent(new Event("scroll"))
     }
 
